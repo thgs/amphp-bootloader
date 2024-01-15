@@ -144,7 +144,7 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     {
         return match ($type) {
             "int" => function (Request $request, string $x): int { return (int) $x; },
-            "string" => function (RequestHandler $request, string $x): string { return $x; },
+            "string" => function (Request $request, string $x): string { return $x; },
             "float" => function (Request $request, string $x): float { return (float) $x; },
             "bool" => function (Request $request, string $x): bool { return (bool) $x; },
             "null" => function (Request $request, string $x) { return $x; },
