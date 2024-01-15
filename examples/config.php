@@ -7,6 +7,9 @@ use thgs\Bootloader\Config\ServerConfiguration;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 require "HelloHandler.php";
+require "AuthMiddleware.php";
+require "DelegatedHandler.php";
+require "HomeHandler.php";
 
 return new Configuration(
     server: new ServerConfiguration(
@@ -17,6 +20,6 @@ return new Configuration(
         routeFile: __DIR__ . '/routes.php'
     ),
     logging: new LoggingConfiguration(
-        name: 'hellow'
+        name: 'hellow-example'
     )
 );
