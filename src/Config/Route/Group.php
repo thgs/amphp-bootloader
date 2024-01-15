@@ -2,15 +2,20 @@
 
 namespace thgs\Bootloader\Config\Route;
 
+use Amp\Http\Server\Middleware;
+use thgs\Bootloader\RouterBuilder;
 use Traversable;
 
 /**
+ * @psalm-import-type RouteConstructor from RouterBuilder
  * @implements \IteratorAggregate<Route|Delegate|Group>
  */
 readonly class Group implements \IteratorAggregate
 {
     public function __construct(
+        /** @var RouteConstructor[] */
         public array $routes,
+        /** @var array<class-string<Middleware>> */
         public array $middleware,
         public string $prefix = ''
     ) {

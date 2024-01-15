@@ -32,6 +32,7 @@
     ],
     "scripts": {
         "psalm": "./vendor/bin/psalm.phar --output-format=phpstorm --no-cache --no-diff",
+        "psalm-update-baseline": "./vendor/bin/psalm.phar --update-baseline --no-cache --no-diff",
         "code-style-dry": "./vendor/bin/php-cs-fixer fix --config=.php_cs.dist.php --verbose --diff --dry-run",
         "code-style-fix": "./vendor/bin/php-cs-fixer fix --config=.php_cs.dist.php --verbose --diff"
     }

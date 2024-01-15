@@ -15,7 +15,11 @@ class AurynInjector implements InjectorInterface
      */
     public function create(string $class): object
     {
-        return $this->auryn->make($class);
+        $object = $this->auryn->make($class);
+        // just a quick way to get rid of psalm complaints
+        \assert($object instanceof $class);
+
+        return $object;
     }
 
     /**
@@ -23,7 +27,11 @@ class AurynInjector implements InjectorInterface
      */
     public function newInstance(string $class): object
     {
-        return $this->auryn->make($class);
+        $object = $this->auryn->make($class);
+        // just a quick way to get rid of psalm complaints
+        \assert($object instanceof $class);
+
+        return $object;
     }
 
     //    public function invokeMethod(object $object, string $method, array $arguments)

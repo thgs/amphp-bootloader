@@ -70,6 +70,8 @@ final readonly class ServerConfiguration
          * @var positive-int
          */
         public int $connectionLimitPerIp = 10,
+
+        /** @var array<non-empty-string>|null */
         public ?array $allowedMethods = AllowedMethodsMiddleware::DEFAULT_ALLOWED_METHODS,
 
         /**

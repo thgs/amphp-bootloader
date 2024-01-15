@@ -52,6 +52,7 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
         $parameterTypes = $this->reflector->reflectParameterTypes($delegate, $delegateMethod);
         $valueMapping = $this->createValueMapping($parameterTypes);
 
+        // todo: since we typehint return type as Response here, maybe check that $delegate returns Response
         $closure = function (Request $request) use ($valueMapping, $delegate, $delegateMethod): Response {
             $requestValues = $request->getAttribute(Router::class);
             $values = [];
@@ -120,6 +121,10 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
         return stackMiddleware($mainHandler, ...$instances);
     }
 
+    /**
+     * @param array<string, string|class-string> $parameterTypes
+     * @return array<string, callable>
+     */
     private function createValueMapping(array $parameterTypes): array
     {
         // todo: some reference here may be beneficial
@@ -131,19 +136,25 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
         return $mapped;
     }
 
-    private function mapForType(?string $type = null): callable
+    /**
+     * @param string|class-string $type
+     */
+    private function mapForType(string $type): callable
     {
         return match ($type) {
-            "int" => function ($request, $x): int { return (int) $x; },
-            "string" => function ($request, $x): string { return (string) $x; },
-            "float" => function ($request, $x): float { return (float) $x; },
-            "bool" => function ($request, $x): bool { return (bool) $x; },
-            "null" => function ($request, $x) { return $x; },
+            "int" => function (Request $request, string $x): int { return (int) $x; },
+            "string" => function (RequestHandler $request, string $x): string { return $x; },
+            "float" => function (Request $request, string $x): float { return (float) $x; },
+            "bool" => function (Request $request, string $x): bool { return (bool) $x; },
+            "null" => function (Request $request, string $x) { return $x; },
             default => $this->resolveThroughMinorDI($type)
         };
     }
 
-    private function resolveThroughMinorDI($type): callable
+    /**
+     * @param string|class-string $type
+     */
+    private function resolveThroughMinorDI(string $type): callable
     {
         // only Request object can be injected from Minor DI (right now)
         // at this point, if you have bigger/actual dependencies, put them in the constructor
@@ -153,6 +164,6 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
         }
 
         // fallback ? odd place
-        return function ($request, $x) { return $x; };
+        return function (Request $request, string $x) { return $x; };
     }
 }

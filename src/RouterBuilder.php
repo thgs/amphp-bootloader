@@ -4,6 +4,7 @@ namespace thgs\Bootloader;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
+use Amp\Http\Server\RequestHandler;
 use Amp\Http\Server\Router;
 use Psr\Log\LoggerInterface;
 use thgs\Bootloader\Config\Route\Delegate;
@@ -12,11 +13,17 @@ use thgs\Bootloader\Config\Route\Route;
 use thgs\Bootloader\Config\Route\RouteRegistry;
 use thgs\Bootloader\Config\Route\Websocket;
 
+/**
+ * @psalm-type RouteConstructor = Route|Delegate|Group|Websocket
+ */
 class RouterBuilder
 {
-    private array $routes;
+    /**
+     * @var array<string, Route|Delegate|Group|Websocket>
+     */
+    private array $routes = [];
 
-    private ?string $fallback;
+    private ?string $fallback = null;
 
     public function __construct(
         private RequestHandlerFactory $handlerFactory,
@@ -45,7 +52,7 @@ class RouterBuilder
     public function build(
         ErrorHandler $errorHandler,
         ?int $cacheSize = null
-    ) {
+    ): Router {
         $router = $cacheSize
             ? new Router($this->httpServer, $this->logger, $errorHandler, \max(1, $cacheSize))
             : new Router($this->httpServer, $this->logger, $errorHandler);
@@ -97,6 +104,10 @@ class RouterBuilder
 
         if (!isset($handler)) {
             throw new \Exception("Unable to create handler for route $method . $uri");
+        }
+
+        if (!$handler instanceof RequestHandler) {
+            throw new \Exception("Handler for $uri is not a RequestHandler");
         }
 
         if (!empty($route->middleware)) {
