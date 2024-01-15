@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader;
 
@@ -32,7 +32,7 @@ final class Boot
 
     private function boot(Configuration $configuration): void
     {
-        $initTime = hrtime(true);
+        $initTime = \hrtime(true);
 
         $this->bootloader = new Bootloader($this->configuration->logging);
         $this->logger = $this->bootloader->logger;
@@ -51,13 +51,13 @@ final class Boot
             );
         }
 
-        $someBootTime = (hrtime(true) - $initTime) / 1_000_000_000;
+        $someBootTime = (\hrtime(true) - $initTime) / 1_000_000_000;
         $this->logger->info("Booted at some $someBootTime seconds");
         $this->httpServer->start($this->requestHandler, $this->errorHandler);
 
         // todo: this needs better handling
         $signal = trapSignal([\SIGINT, \SIGTERM]);
-        $this->stop(sprintf("Received signal %s, stopping HTTP server", $signal === 2 ? 'SIGINT' : 'SIGTERM'));
+        $this->stop(\sprintf("Received signal %s, stopping HTTP server", $signal === 2 ? 'SIGINT' : 'SIGTERM'));
     }
 
     public function stop(string $reason): void

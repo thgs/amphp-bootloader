@@ -14,12 +14,12 @@ final readonly class PhpFileLoader implements ConfigLoader
     {
         // todo: is_readable is blocking - do we care?
         if (!\is_readable($file)) {
-            throw ConfigurationException::unreadableConfigFile();
+            throw ConfigurationException::unreadableConfigFile($file);
         }
 
         $returned = include_once $file;
         if (!$returned instanceof Configuration) {
-            throw ConfigurationException::unableToRetrieveConfiguration();
+            throw ConfigurationException::unableToRetrieveConfiguration($file, 'Configuration');
         }
         $this->configuration = $returned;
     }

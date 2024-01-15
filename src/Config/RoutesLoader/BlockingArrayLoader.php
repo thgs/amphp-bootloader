@@ -4,6 +4,7 @@ namespace thgs\Bootloader\Config\RoutesLoader;
 
 use thgs\Bootloader\Config\Route\RouteRegistry;
 use thgs\Bootloader\Config\RoutesLoader;
+use thgs\Bootloader\Exception\ConfigurationException;
 
 /**
  * A probably blocking AND eager loader. Calls to load() will
@@ -15,11 +16,15 @@ class BlockingArrayLoader implements RoutesLoader
 
     public function __construct(string $routeFile)
     {
+        if (!\is_readable($routeFile)) {
+            throw ConfigurationException::unreadableConfigFile($routeFile);
+        }
+
         // todo: would an iffy here guard global vars? do we want to guard?
         $result = require $routeFile;
 
         if (!\is_array($result)) {
-            throw new \Exception("Invalid result while trying to load array of routes in $routeFile");
+            throw ConfigurationException::unableToRetrieveConfiguration($routeFile, 'array of RouteConstructor');
         }
 
         // todo: add type checks
