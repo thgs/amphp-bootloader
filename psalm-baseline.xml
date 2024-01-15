@@ -5,6 +5,11 @@
       <code>Bootloader</code>
     </UnusedClass>
   </file>
+  <file src="src/Config/ConfigLoader.php">
+    <PossiblyUnusedMethod>
+      <code>load</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Config/Configuration.php">
     <PossiblyUnusedMethod>
       <code>__construct</code>
@@ -18,6 +23,9 @@
     </PossiblyUnusedProperty>
   </file>
   <file src="src/Config/Loader/PhpFileLoader.php">
+    <UnresolvableInclude>
+      <code>include_once $file</code>
+    </UnresolvableInclude>
     <UnusedClass>
       <code>PhpFileLoader</code>
     </UnusedClass>
@@ -43,7 +51,19 @@
       <code>__construct</code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Config/RoutesLoader/BlockingArrayLoader.php">
+    <MixedArgument>
+      <code><![CDATA[$result['fallback'] ?? null]]></code>
+      <code><![CDATA[$result['routes'] ?? []]]></code>
+    </MixedArgument>
+    <UnresolvableInclude>
+      <code>require $routeFile</code>
+    </UnresolvableInclude>
+  </file>
   <file src="src/Config/RoutesLoader/CombinedLoader.php">
+    <ArgumentTypeCoercion>
+      <code><![CDATA[$this->fallback]]></code>
+    </ArgumentTypeCoercion>
     <UnusedClass>
       <code>CombinedLoader</code>
     </UnusedClass>
@@ -74,5 +94,29 @@
     <UnusedClass>
       <code>AurynInjector</code>
     </UnusedClass>
+  </file>
+  <file src="src/DependencyInjection/Injector.php">
+    <PossiblyUnusedMethod>
+      <code>newInstance</code>
+    </PossiblyUnusedMethod>
+  </file>
+  <file src="src/RequestHandlerFactory/DefaultRequestHandlerFactory.php">
+    <MixedArrayAccess>
+      <code>$requestValues[$name]</code>
+    </MixedArrayAccess>
+    <MixedAssignment>
+      <code>$requestValues</code>
+      <code>$values[$name]</code>
+      <code>$values[$name]</code>
+    </MixedAssignment>
+    <MixedInferredReturnType>
+      <code>Response</code>
+    </MixedInferredReturnType>
+    <MixedMethodCall>
+      <code>$delegateMethod</code>
+    </MixedMethodCall>
+    <MixedReturnStatement>
+      <code><![CDATA[$delegate->$delegateMethod(...$values)]]></code>
+    </MixedReturnStatement>
   </file>
 </files>
