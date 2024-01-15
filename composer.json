@@ -14,7 +14,8 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
-        "amphp/phpunit-util": "^3.0"
+        "amphp/phpunit-util": "^3.0",
+        "psalm/phar": "^5.19"
     },
     "license": "MIT",
     "autoload": {
@@ -27,5 +28,8 @@
             "name": "thgs",
             "email": "theogpl57@gmail.com"
         }
-    ]
+    ],
+    "scripts": {
+        "psalm": "./vendor/bin/psalm.phar --output-format=phpstorm --no-cache --no-diff"
+    }
 }
