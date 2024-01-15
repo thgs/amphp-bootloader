@@ -2,7 +2,7 @@
 
 namespace thgs\Bootloader\DependencyInjection;
 
-interface InjectorInterface
+interface Injector
 {
     /**
      * @template T

@@ -3,6 +3,7 @@
 namespace thgs\Bootloader\DependencyInjection;
 
 use Auryn\Injector;
+use thgs\Bootloader\DependencyInjection\Injector as InjectorInterface;
 
 class AurynInjector implements InjectorInterface
 {

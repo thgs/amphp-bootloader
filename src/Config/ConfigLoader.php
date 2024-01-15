@@ -2,7 +2,7 @@
 
 namespace thgs\Bootloader\Config;
 
-interface ConfigLoaderInterface
+interface ConfigLoader
 {
     /**
      * Call to retrieve the configuration.

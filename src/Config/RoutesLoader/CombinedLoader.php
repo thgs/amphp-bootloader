@@ -3,14 +3,14 @@
 namespace thgs\Bootloader\Config\RoutesLoader;
 
 use thgs\Bootloader\Config\Route\RouteRegistry;
-use thgs\Bootloader\Config\RoutesLoaderInterface;
+use thgs\Bootloader\Config\RoutesLoader;
 
-final class CombinedLoader implements RoutesLoaderInterface
+final class CombinedLoader implements RoutesLoader
 {
     public function __construct(
-        private RoutesLoaderInterface $a,
-        private RoutesLoaderInterface $b,
-        private ?string $fallback
+        private RoutesLoader $a,
+        private RoutesLoader $b,
+        private ?string      $fallback
     ) {
     }
 

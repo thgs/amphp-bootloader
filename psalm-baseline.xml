@@ -5,11 +5,6 @@
       <code>Bootloader</code>
     </UnusedClass>
   </file>
-  <file src="src/Config/ConfigLoaderInterface.php">
-    <PossiblyUnusedMethod>
-      <code>load</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/Config/Configuration.php">
     <PossiblyUnusedMethod>
       <code>__construct</code>
@@ -79,10 +74,5 @@
     <UnusedClass>
       <code>AurynInjector</code>
     </UnusedClass>
-  </file>
-  <file src="src/DependencyInjection/InjectorInterface.php">
-    <PossiblyUnusedMethod>
-      <code>newInstance</code>
-    </PossiblyUnusedMethod>
   </file>
 </files>

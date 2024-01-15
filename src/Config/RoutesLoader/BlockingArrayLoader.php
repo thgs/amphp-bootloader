@@ -3,13 +3,13 @@
 namespace thgs\Bootloader\Config\RoutesLoader;
 
 use thgs\Bootloader\Config\Route\RouteRegistry;
-use thgs\Bootloader\Config\RoutesLoaderInterface;
+use thgs\Bootloader\Config\RoutesLoader;
 
 /**
  * A probably blocking AND eager loader. Calls to load() will
  * result to the same output.
  */
-class BlockingArrayLoader implements RoutesLoaderInterface
+class BlockingArrayLoader implements RoutesLoader
 {
     private RouteRegistry $registry;
 

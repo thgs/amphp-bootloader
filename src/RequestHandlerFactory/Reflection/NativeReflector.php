@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Reflection;
+namespace thgs\Bootloader\RequestHandlerFactory\Reflection;
 
-class NativeReflector implements ReflectorInterface
+class NativeReflector implements Reflector
 {
     /**
      * @return array<string, string|class-string>

@@ -19,8 +19,9 @@ use thgs\Bootloader\Config\LoggingConfiguration;
 use thgs\Bootloader\Config\RequestHandlerConfiguration;
 use thgs\Bootloader\Config\RoutesLoader\BlockingArrayLoader;
 use thgs\Bootloader\Config\ServerConfiguration;
-use thgs\Bootloader\DependencyInjection\InjectorInterface;
-use thgs\Bootloader\Reflection\NativeReflector;
+use thgs\Bootloader\DependencyInjection\Injector;
+use thgs\Bootloader\RequestHandlerFactory\DefaultRequestHandlerFactory;
+use thgs\Bootloader\RequestHandlerFactory\Reflection\NativeReflector;
 use function Amp\ByteStream\getStdout;
 
 class Bootloader
@@ -105,15 +106,15 @@ class Bootloader
 
     public function loadHandler(
         RequestHandlerConfiguration $config,
-        HttpServer $httpServer,
-        LoggerInterface $logger,
-        ErrorHandler $errorHandler,
-        InjectorInterface $injector,
-        ?int $cacheSize = null
+        HttpServer                  $httpServer,
+        LoggerInterface             $logger,
+        ErrorHandler                $errorHandler,
+        Injector                    $injector,
+        ?int                        $cacheSize = null
     ): RequestHandler {
         $loader = new BlockingArrayLoader($config->routeFile);
         $builder = new RouterBuilder(
-            new SimpleRequestHandlerFactory($injector, new NativeReflector()),
+            new DefaultRequestHandlerFactory($injector, new NativeReflector()),
             $httpServer,
             $logger
         );

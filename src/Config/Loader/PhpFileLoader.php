@@ -2,11 +2,11 @@
 
 namespace thgs\Bootloader\Config\Loader;
 
-use thgs\Bootloader\Config\ConfigLoaderInterface;
+use thgs\Bootloader\Config\ConfigLoader;
 use thgs\Bootloader\Config\Configuration;
 use thgs\Bootloader\Exception\ConfigurationException;
 
-final readonly class PhpFileLoader implements ConfigLoaderInterface
+final readonly class PhpFileLoader implements ConfigLoader
 {
     private Configuration $configuration;
 

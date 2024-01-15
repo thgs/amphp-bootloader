@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Reflection;
+namespace thgs\Bootloader\RequestHandlerFactory\Reflection;
 
-interface ReflectorInterface
+interface Reflector
 {
     /**
      * @return array<string, string|class-string>

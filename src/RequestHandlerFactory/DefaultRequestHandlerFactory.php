@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader;
+namespace thgs\Bootloader\RequestHandlerFactory;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
@@ -14,14 +14,15 @@ use Amp\Http\Server\StaticContent\DocumentRoot;
 use Amp\Http\Server\StaticContent\StaticResource;
 use Amp\Websocket\Server\Websocket;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\DependencyInjection\InjectorInterface;
-use thgs\Bootloader\Reflection\NativeReflector;
+use thgs\Bootloader\DependencyInjection\Injector;
+use thgs\Bootloader\RequestHandlerFactory;
+use thgs\Bootloader\RequestHandlerFactory\Reflection\NativeReflector;
 use function Amp\Http\Server\Middleware\stackMiddleware;
 
-class SimpleRequestHandlerFactory implements RequestHandlerFactory
+class DefaultRequestHandlerFactory implements RequestHandlerFactory
 {
     public function __construct(
-        private InjectorInterface $injector,
+        private Injector $injector,
         private NativeReflector $reflector
     ) {
     }
