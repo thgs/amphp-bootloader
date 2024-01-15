@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config;
 
@@ -11,7 +11,7 @@ final readonly class Configuration
         public ?SessionConfiguration $session = null,
 
         /**
-         * Placeholder for any custom configuration
+         * Placeholder for any custom configuration.
          *
          * @var array
          */

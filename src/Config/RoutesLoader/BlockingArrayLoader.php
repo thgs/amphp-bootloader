@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config\RoutesLoader;
 
@@ -18,7 +18,7 @@ class BlockingArrayLoader implements RoutesLoaderInterface
         // todo: would an iffy here guard global vars? do we want to guard?
         $result = require $routeFile;
 
-        if (!is_array($result)) {
+        if (!\is_array($result)) {
             throw new \Exception("Invalid result while trying to load array of routes in $routeFile");
         }
 

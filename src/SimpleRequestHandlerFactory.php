@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader;
 
@@ -45,7 +45,7 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
     {
         $delegate = $this->injector->create($class);
 
-        if (!method_exists($delegate, $delegateMethod)) {
+        if (!\method_exists($delegate, $delegateMethod)) {
             throw new \Exception("$delegateMethod does not exist in $class");
         }
 
@@ -67,9 +67,9 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
             return $delegate->$delegateMethod(...$values);
         };
 
-//        if (!isset($closure)) {
-//            throw new \Exception('Cannot create request handler');
-//        }
+        //        if (!isset($closure)) {
+        //            throw new \Exception('Cannot create request handler');
+        //        }
 
         return new ClosureRequestHandler($closure);
     }
@@ -93,9 +93,9 @@ class SimpleRequestHandlerFactory implements RequestHandlerFactory
         string $fallback
     ): RequestHandler {
         return match(\true) {
-            class_exists($fallback) => $this->createRequestHandler($fallback),
-            is_dir($fallback) => new DocumentRoot($httpServer, $errorHandler, $fallback),
-            is_file($fallback) => new StaticResource($httpServer, $errorHandler, $fallback),
+            \class_exists($fallback) => $this->createRequestHandler($fallback),
+            \is_dir($fallback) => new DocumentRoot($httpServer, $errorHandler, $fallback),
+            \is_file($fallback) => new StaticResource($httpServer, $errorHandler, $fallback),
             default => throw new \Exception('Cannot create fallback handler')
         };
     }

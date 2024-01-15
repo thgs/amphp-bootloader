@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config\Route;
 
@@ -44,7 +44,7 @@ readonly class Group implements \IteratorAggregate
             }
 
             if (!isset($newRoute)) {
-                throw new \Exception('Group cannot handle route type of ' . get_class($route));
+                throw new \Exception('Group cannot handle route type of ' . \get_class($route));
             }
 
             yield $i => $newRoute;

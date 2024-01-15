@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\DependencyInjection;
 
@@ -26,16 +26,16 @@ class AurynInjector implements InjectorInterface
         return $this->auryn->make($class);
     }
 
-//    public function invokeMethod(object $object, string $method, array $arguments)
-//    {
-//        $args = [];
-//        foreach ($arguments as $key => $argument) {
-//            if (is_string($key)) {
-//                $args[':' . $key] = $argument;
-//                continue;
-//            }
-//            $args[] = $argument;
-//        }
-//        return $this->auryn->execute([$object, $method], $args);
-//    }
+    //    public function invokeMethod(object $object, string $method, array $arguments)
+    //    {
+    //        $args = [];
+    //        foreach ($arguments as $key => $argument) {
+    //            if (is_string($key)) {
+    //                $args[':' . $key] = $argument;
+    //                continue;
+    //            }
+    //            $args[] = $argument;
+    //        }
+    //        return $this->auryn->execute([$object, $method], $args);
+    //    }
 }

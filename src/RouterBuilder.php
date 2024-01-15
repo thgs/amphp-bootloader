@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader;
 
@@ -47,7 +47,7 @@ class RouterBuilder
         ?int $cacheSize = null
     ) {
         $router = $cacheSize
-            ? new Router($this->httpServer, $this->logger, $errorHandler, max(1, $cacheSize))
+            ? new Router($this->httpServer, $this->logger, $errorHandler, \max(1, $cacheSize))
             : new Router($this->httpServer, $this->logger, $errorHandler);
 
         foreach ($this->routes as $route) {

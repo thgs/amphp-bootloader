@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config;
 
@@ -42,7 +42,7 @@ final readonly class ServerConfiguration
         public ?string $documentRoot = null,
 
         /**
-         * Set full paths to static resources
+         * Set full paths to static resources.
          *
          * @var string[]|null
          */
@@ -60,19 +60,17 @@ final readonly class ServerConfiguration
         public int $concurrencyLimit = 1000,
 
         /**
-         * Only applies to direct access
+         * Only applies to direct access.
          * @var positive-int
          */
         public int $connectionLimit = 1000,
 
         /**
-         * Only applies to direct access
+         * Only applies to direct access.
          * @var positive-int
          */
         public int $connectionLimitPerIp = 10,
-
         public ?array $allowedMethods = AllowedMethodsMiddleware::DEFAULT_ALLOWED_METHODS,
-
 
         /**
          * Set to `true` to use createForBehindProxy.

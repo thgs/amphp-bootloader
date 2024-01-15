@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config\Route;
 
@@ -13,7 +13,6 @@ readonly class Delegate
          * @var class-string
          */
         public string $delegate,
-
         public string $action = '__invoke',
 
         /**

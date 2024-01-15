@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\DependencyInjection;
 
@@ -18,5 +18,5 @@ interface InjectorInterface
      */
     public function newInstance(string $class): object;
 
-//    public function invokeMethod(object $object, string $method, array $arguments);
+    //    public function invokeMethod(object $object, string $method, array $arguments);
 }

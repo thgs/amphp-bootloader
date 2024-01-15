@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config\Loader;
 
@@ -13,7 +13,7 @@ final readonly class PhpFileLoader implements ConfigLoaderInterface
     public function __construct(string $file)
     {
         // todo: is_readable is blocking - do we care?
-        if (!is_readable($file)) {
+        if (!\is_readable($file)) {
             throw ConfigurationException::unreadableConfigFile();
         }
 

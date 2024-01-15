@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader;
 
@@ -73,7 +73,7 @@ class Bootloader
 
             /** @var array<non-empty-string> $trustedProxies  Just to suppress psalm here */
             $trustedProxies = $config->trustedProxies;
-            if (count($trustedProxies) < 1 || empty($trustedProxies[0])) {
+            if (\count($trustedProxies) < 1 || empty($trustedProxies[0])) {
                 throw new \Exception('Trusted proxies empty. Must include at least one.');
             }
 

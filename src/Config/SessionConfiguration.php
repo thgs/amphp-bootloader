@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace thgs\Bootloader\Config;
 
@@ -22,7 +22,6 @@ final readonly class SessionConfiguration
          * @var int
          */
         public int $sessionLifetime = LocalSessionStorage::DEFAULT_SESSION_LIFETIME,
-
         public string $cookieName = self::DEFAULT_COOKIE_NAME,
 
         /**
@@ -31,7 +30,6 @@ final readonly class SessionConfiguration
          * @var string|null
          */
         public ?string $expiry = '+30 minute',
-
         public bool $secureCookie = false,
     ) {
     }
