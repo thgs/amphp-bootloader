@@ -1,0 +1,31 @@
+{
+    "name": "thgs/amphp-bootloader",
+    "description": "A package that makes it easier to boot Amphp http server",
+    "type": "library",
+    "require": {
+        "amphp/http-server": "^3",
+        "amphp/http-server-static-content": "^2",
+        "amphp/http-server-router": "^2",
+        "amphp/log": "^2",
+        "php": ">=8.2",
+        "amphp/http-server-session": "^3.0",
+        "amphp/websocket-server": "^4.0",
+        "rdlowrey/auryn": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9",
+        "amphp/phpunit-util": "^3.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "thgs\\Bootloader\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "thgs",
+            "email": "theogpl57@gmail.com"
+        }
+    ]
+}
