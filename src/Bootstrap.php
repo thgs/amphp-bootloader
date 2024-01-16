@@ -11,7 +11,7 @@ use thgs\Bootloader\Config\Configuration;
 use thgs\Bootloader\DependencyInjection\Injector;
 use function Amp\trapSignal;
 
-final class Boot
+final class Bootstrap
 {
     /** @var string */
     public const LOG_CONTEXT = 'boot';
