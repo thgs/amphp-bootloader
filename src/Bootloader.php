@@ -47,12 +47,11 @@ class Bootloader
     public function loadServerConfig(ServerConfiguration $config): HttpServer
     {
         $context = null;
-
         if ($config->certificatePath) {
             $certificate = new Certificate($config->certificatePath);
-
             $context = (new BindContext())
-                ->withTlsContext((new ServerTlsContext())->withDefaultCertificate($certificate));
+                ->withTlsContext((new ServerTlsContext())
+                ->withDefaultCertificate($certificate));
         }
 
         // after instantiation
