@@ -24,7 +24,7 @@ final class Bootstrap
         public readonly Configuration $configuration,
         // can we move these two out and they come from config?
         private Injector $injector,
-        private ?RequestHandler $requestHandler = null,
+        private ?RequestHandler $requestHandler = null,     // pass your pre-configured Router instance here.
         private readonly ErrorHandler $errorHandler = new DefaultErrorHandler()
     ) {
         $this->boot($this->configuration);
