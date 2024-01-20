@@ -105,11 +105,11 @@ class Bootloader
 
     public function loadHandler(
         RequestHandlerConfiguration $config,
-        HttpServer                  $httpServer,
-        LoggerInterface             $logger,
-        ErrorHandler                $errorHandler,
-        Injector                    $injector,
-        ?int                        $cacheSize = null
+        HttpServer $httpServer,
+        LoggerInterface $logger,
+        ErrorHandler $errorHandler,
+        Injector $injector,
+        ?int $cacheSize = null
     ): RequestHandler {
         $loader = new BlockingArrayLoader($config->routeFile);
         $builder = new RouterBuilder(
