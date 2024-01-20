@@ -1,5 +1,5 @@
 {
-    "name": "thgs/amphp-bootloader",
+    "name": "thgs/amphp-bootstrap",
     "description": "A package that guides the booting state of an Amphp HTTP server",
     "type": "library",
     "require": {
