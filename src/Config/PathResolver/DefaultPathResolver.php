@@ -3,36 +3,43 @@
 namespace thgs\Bootstrap\Config\PathResolver;
 
 use thgs\Bootstrap\Config\PathResolver;
+use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Path;
 
 class DefaultPathResolver implements PathResolver
 {
-    public function __construct(private ?string $publicDir = null)
+    public function __construct(private readonly ?string $publicDir = null)
     {
     }
 
-    public function resolve(Path $route): ResolvedFile|ResolvedDir
+    public function resolve(Path|Fallback $route): ResolvedFile|ResolvedDir
     {
+        $givenPath = $route->path;
+        if ($givenPath === null) {
+            // todo: improve this message
+            throw new \Exception('Missing path definition for route ' . \get_class($route));
+        }
+
         return match ($route->isDir) {
             true => match (\true) {
-                \is_dir($route->path) => new ResolvedDir($route->path),
-                \is_dir($try = \getcwd() . '/' . $route->path) => new ResolvedDir($try),
+                \is_dir($givenPath) => new ResolvedDir($givenPath),
+                \is_dir($try = \getcwd() . '/' . $givenPath) => new ResolvedDir($try),
 
                 $this->publicDir !== null
-                && \is_dir($try = $this->publicDir . '/' . $route->path) => new ResolvedDir($try),
+                && \is_dir($try = $this->publicDir . '/' . $givenPath) => new ResolvedDir($try),
 
                 // for now, to allow for different filesystem drivers
-                default => new ResolvedDir($route->path)
+                default => new ResolvedDir($givenPath)
             },
             false => match (\true) {
-                \is_file($route->path) => new ResolvedFile($route->path),
-                \is_file($try = \getcwd() . '/' . $route->path) => new ResolvedFile($try),
+                \is_file($givenPath) => new ResolvedFile($givenPath),
+                \is_file($try = \getcwd() . '/' . $givenPath) => new ResolvedFile($try),
 
                 $this->publicDir !== null
-                && \is_file($try = $this->publicDir . '/' . $route->path) => new ResolvedFile($try),
+                && \is_file($try = $this->publicDir . '/' . $givenPath) => new ResolvedFile($try),
 
                 // for now, to allow for different filesystem drivers
-                default => new ResolvedFile($route->path)
+                default => new ResolvedFile($givenPath)
             }
         };
     }

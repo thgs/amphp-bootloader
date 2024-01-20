@@ -9,6 +9,7 @@ use Amp\Websocket\Server\WebsocketAcceptor;
 use Amp\Websocket\Server\WebsocketClientHandler;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Path;
 use thgs\Bootstrap\Config\Route\Route;
 use thgs\Bootstrap\Config\Route\Websocket;
@@ -50,14 +51,10 @@ interface RequestHandlerFactory
         Path $forRoute
     ): RequestHandler;
 
-    /**
-     * Implementations SHOULD pass `Fallback` route to DI when creating an instance
-     * of the fallback request handler.
-     */
     public function createFallbackRequestHandler(
         HttpServer $httpServer,
         ErrorHandler $errorHandler,
-        string $fallback
+        Fallback $fallback
     ): RequestHandler;
 
     /**
@@ -65,7 +62,7 @@ interface RequestHandlerFactory
      */
     public function createMiddlewareStack(
         RequestHandler $mainHandler,
-        Route|Delegate|Websocket|Path|null $forRoute,
+        Route|Delegate|Websocket|Path|Fallback|null $forRoute,
         string ...$middlewares
     ): RequestHandler;
 }

@@ -38,6 +38,11 @@
       <code>__construct</code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Config/Route/Fallback.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Config/Route/Group.php">
     <PossiblyUnusedMethod>
       <code>__construct</code>
@@ -63,9 +68,6 @@
     </UnresolvableInclude>
   </file>
   <file src="src/Config/RoutesLoader/CombinedLoader.php">
-    <ArgumentTypeCoercion>
-      <code><![CDATA[$this->fallback]]></code>
-    </ArgumentTypeCoercion>
     <UnusedClass>
       <code>CombinedLoader</code>
     </UnusedClass>

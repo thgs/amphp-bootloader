@@ -8,6 +8,7 @@ use Amp\Http\Server\RequestHandler;
 use Amp\Http\Server\Router;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Group;
 use thgs\Bootstrap\Config\Route\Path;
 use thgs\Bootstrap\Config\Route\Route;
@@ -25,7 +26,7 @@ class RouterBuilder
      */
     private array $routes = [];
 
-    private ?string $fallback = null;
+    private ?Fallback $fallback = null;
 
     public function __construct(
         private RequestHandlerFactory $handlerFactory,
@@ -46,8 +47,9 @@ class RouterBuilder
         }
     }
 
-    public function addFallback(?string $fallback): void
+    public function addFallback(?Fallback $fallback): void
     {
+        // todo: support any request handler here, not just those from Fallback
         // todo: when adding a fallback like DocumentRoot the default FilesystemDriver needs ext-posix
         $this->fallback = $fallback;
     }
@@ -65,12 +67,21 @@ class RouterBuilder
         }
 
         if ($this->fallback) {
-            $fallback = $this->handlerFactory->createFallbackRequestHandler(
+            $fallbackHandler = $this->handlerFactory->createFallbackRequestHandler(
                 $this->httpServer,
                 $errorHandler,
                 $this->fallback
             );
-            $router->setFallback($fallback);
+
+            if (!empty($this->fallback->middleware)) {
+                $fallbackHandler = $this->handlerFactory->createMiddlewareStack(
+                    $fallbackHandler,
+                    $this->fallback,
+                    ...$this->fallback->middleware
+                );
+            }
+
+            $router->setFallback($fallbackHandler);
         }
 
         return $router;

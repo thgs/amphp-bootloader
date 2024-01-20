@@ -116,17 +116,23 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     public function createFallbackRequestHandler(
         HttpServer $httpServer,
         ErrorHandler $errorHandler,
-        string $fallback
+        Fallback $fallback
     ): RequestHandler {
-        return match(\true) {
-            \class_exists($fallback) => $this->createRequestHandler($fallback, new Fallback()),
+        if ($fallback->handler !== null) {
+            return $this->createRequestHandler($fallback->handler, $fallback);
+        }
 
-            // todo: add support for a different filesystem below
-            \is_dir($fallback) => new DocumentRoot($httpServer, $errorHandler, $fallback),
-            \is_file($fallback) => new StaticResource($httpServer, $errorHandler, $fallback),
+        if ($fallback->path === null) {
+            throw new \Exception('Missing fallback path');
+        }
 
-            default => throw new \Exception('Cannot create fallback handler')
-        };
+        // todo: support filesystem
+        $filesystem = null;
+
+        $resolved = $this->pathResolver->resolve($fallback);
+        return $resolved instanceof PathResolver\ResolvedDir
+            ? new DocumentRoot($httpServer, $errorHandler, $resolved->path, $filesystem)
+            : new StaticResource($httpServer, $errorHandler, $resolved->path);
     }
 
     /**
@@ -134,7 +140,7 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
      */
     public function createMiddlewareStack(
         RequestHandler $mainHandler,
-        Route|Delegate|WebsocketRoute|Path|null $forRoute,
+        Route|Delegate|WebsocketRoute|Path|Fallback|null $forRoute,
         string ...$middlewares
     ): RequestHandler {
         // todo: support array on $middleware elements so that they can add configuration
