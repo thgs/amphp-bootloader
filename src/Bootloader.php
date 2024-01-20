@@ -125,7 +125,7 @@ class Bootloader
         return $builder->build($errorHandler, $cacheSize);
     }
 
-    private function getStdoutLogger(string $name = 'cane'): LoggerInterface
+    private function getStdoutLogger(string $name = 'amphp-httpd'): LoggerInterface
     {
         $handler = new StreamHandler(getStdout());
         $handler->pushProcessor(new PsrLogMessageProcessor());

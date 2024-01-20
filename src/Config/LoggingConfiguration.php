@@ -10,7 +10,7 @@ final readonly class LoggingConfiguration
          *
          * @var string
          */
-        public string $name = 'cane',
+        public string $name = 'amphp-httpd',
         public bool $logInStdout = true,
 
         /**
