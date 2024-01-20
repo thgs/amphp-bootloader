@@ -46,6 +46,7 @@ class RouterBuilder
 
     public function addFallback(?string $fallback): void
     {
+        // todo: when adding a fallback like DocumentRoot the default FilesystemDriver needs ext-posix
         $this->fallback = $fallback;
     }
 
