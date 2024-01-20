@@ -14,7 +14,7 @@ class AurynInjector implements InjectorInterface
     /**
      * @inheritDoc
      */
-    public function create(string $class): object
+    public function create(string $class, ?string $forRoute = null): object
     {
         $object = $this->auryn->make($class);
         // just a quick way to get rid of psalm complaints

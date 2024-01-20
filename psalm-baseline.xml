@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.19.0@06b71be009a6bd6d81b9811855d6629b9fe90e1b">
-  <file src="src/Boot.php">
+  <file src="src/Bootstrap.php">
     <UnusedClass>
-      <code>Boot</code>
+      <code>Bootstrap</code>
     </UnusedClass>
   </file>
   <file src="src/Config/ConfigLoader.php">
