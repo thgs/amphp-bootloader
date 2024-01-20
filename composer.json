@@ -1,6 +1,6 @@
 {
     "name": "thgs/amphp-bootloader",
-    "description": "A package that makes it easier to boot Amphp http server",
+    "description": "A package that guides the booting state of an Amphp HTTP server",
     "type": "library",
     "require": {
         "amphp/http-server": "^3",
@@ -27,7 +27,7 @@
     },
     "authors": [
         {
-            "name": "thgs",
+            "name": "Theo Gotsopoulos",
             "email": "theogpl57@gmail.com"
         }
     ],
