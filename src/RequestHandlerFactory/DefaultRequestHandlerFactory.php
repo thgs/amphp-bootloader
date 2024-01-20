@@ -120,8 +120,11 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     ): RequestHandler {
         return match(\true) {
             \class_exists($fallback) => $this->createRequestHandler($fallback, new Fallback()),
+
+            // todo: add support for a different filesystem below
             \is_dir($fallback) => new DocumentRoot($httpServer, $errorHandler, $fallback),
             \is_file($fallback) => new StaticResource($httpServer, $errorHandler, $fallback),
+
             default => throw new \Exception('Cannot create fallback handler')
         };
     }
