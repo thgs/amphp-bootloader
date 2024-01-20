@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\DependencyInjection;
+namespace thgs\Bootstrap\DependencyInjection;
 
 use Auryn\Injector;
-use thgs\Bootloader\Config\Route\Delegate;
-use thgs\Bootloader\Config\Route\Fallback;
-use thgs\Bootloader\Config\Route\Route;
-use thgs\Bootloader\Config\Route\Websocket;
-use thgs\Bootloader\DependencyInjection\Injector as InjectorInterface;
+use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Fallback;
+use thgs\Bootstrap\Config\Route\Route;
+use thgs\Bootstrap\Config\Route\Websocket;
+use thgs\Bootstrap\DependencyInjection\Injector as InjectorInterface;
 
 class AurynInjector implements InjectorInterface
 {

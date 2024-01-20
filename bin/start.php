@@ -1,9 +1,9 @@
 <?php
 
 use Auryn\Injector;
-use thgs\Bootloader\Bootstrap;
-use thgs\Bootloader\Config\Loader\PhpFileLoader;
-use thgs\Bootloader\DependencyInjection\AurynInjector;
+use thgs\Bootstrap\Bootstrap;
+use thgs\Bootstrap\Config\Loader\PhpFileLoader;
+use thgs\Bootstrap\DependencyInjection\AurynInjector;
 
 require \dirname(__DIR__) . '/vendor/autoload.php';
 
@@ -15,6 +15,6 @@ try {
         new AurynInjector(new Injector())
     );
 } catch (\Throwable $e) {
-    print 'Amphp Bootloader: ' . get_class($e) . ': ' . $e->getMessage() . PHP_EOL;
+    print 'Amphp Bootstrap: ' . get_class($e) . ': ' . $e->getMessage() . PHP_EOL;
     exit(1);
 }

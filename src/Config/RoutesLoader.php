@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config;
+namespace thgs\Bootstrap\Config;
 
-use thgs\Bootloader\Config\Route\RouteRegistry;
+use thgs\Bootstrap\Config\Route\RouteRegistry;
 
 interface RoutesLoader
 {

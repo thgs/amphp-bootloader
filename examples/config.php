@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-use thgs\Bootloader\Config\Configuration;
-use thgs\Bootloader\Config\LoggingConfiguration;
-use thgs\Bootloader\Config\RequestHandlerConfiguration;
-use thgs\Bootloader\Config\ServerConfiguration;
+use thgs\Bootstrap\Config\Configuration;
+use thgs\Bootstrap\Config\LoggingConfiguration;
+use thgs\Bootstrap\Config\RequestHandlerConfiguration;
+use thgs\Bootstrap\Config\ServerConfiguration;
 
 require dirname(__DIR__) . '/vendor/autoload.php';
 require "HelloHandler.php";

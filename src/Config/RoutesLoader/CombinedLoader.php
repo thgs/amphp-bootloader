@@ -1,16 +1,16 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config\RoutesLoader;
+namespace thgs\Bootstrap\Config\RoutesLoader;
 
-use thgs\Bootloader\Config\Route\RouteRegistry;
-use thgs\Bootloader\Config\RoutesLoader;
+use thgs\Bootstrap\Config\Route\RouteRegistry;
+use thgs\Bootstrap\Config\RoutesLoader;
 
 final class CombinedLoader implements RoutesLoader
 {
     public function __construct(
         private RoutesLoader $a,
         private RoutesLoader $b,
-        private ?string      $fallback
+        private ?string $fallback
     ) {
     }
 

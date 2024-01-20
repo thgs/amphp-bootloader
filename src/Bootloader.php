@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader;
+namespace thgs\Bootstrap;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
@@ -15,13 +15,13 @@ use Amp\Socket\ServerTlsContext;
 use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\Config\LoggingConfiguration;
-use thgs\Bootloader\Config\RequestHandlerConfiguration;
-use thgs\Bootloader\Config\RoutesLoader\BlockingArrayLoader;
-use thgs\Bootloader\Config\ServerConfiguration;
-use thgs\Bootloader\DependencyInjection\Injector;
-use thgs\Bootloader\RequestHandlerFactory\DefaultRequestHandlerFactory;
-use thgs\Bootloader\RequestHandlerFactory\Reflection\NativeReflector;
+use thgs\Bootstrap\Config\LoggingConfiguration;
+use thgs\Bootstrap\Config\RequestHandlerConfiguration;
+use thgs\Bootstrap\Config\RoutesLoader\BlockingArrayLoader;
+use thgs\Bootstrap\Config\ServerConfiguration;
+use thgs\Bootstrap\DependencyInjection\Injector;
+use thgs\Bootstrap\RequestHandlerFactory\DefaultRequestHandlerFactory;
+use thgs\Bootstrap\RequestHandlerFactory\Reflection\NativeReflector;
 use function Amp\ByteStream\getStdout;
 
 class Bootloader

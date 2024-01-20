@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader;
+namespace thgs\Bootstrap;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\RequestHandler;
 use Amp\Http\Server\Router;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\Config\Route\Delegate;
-use thgs\Bootloader\Config\Route\Group;
-use thgs\Bootloader\Config\Route\Route;
-use thgs\Bootloader\Config\Route\RouteRegistry;
-use thgs\Bootloader\Config\Route\Websocket;
+use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Group;
+use thgs\Bootstrap\Config\Route\Route;
+use thgs\Bootstrap\Config\Route\RouteRegistry;
+use thgs\Bootstrap\Config\Route\Websocket;
 
 /**
  * @psalm-type RouteConstructor = Route|Delegate|Group|Websocket

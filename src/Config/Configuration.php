@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config;
+namespace thgs\Bootstrap\Config;
 
 final readonly class Configuration
 {

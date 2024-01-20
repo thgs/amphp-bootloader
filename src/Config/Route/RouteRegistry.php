@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config\Route;
+namespace thgs\Bootstrap\Config\Route;
 
 use Amp\Http\Server\RequestHandler;
-use thgs\Bootloader\RouterBuilder;
+use thgs\Bootstrap\RouterBuilder;
 
 /**
  * @psalm-import-type RouteConstructor from RouterBuilder

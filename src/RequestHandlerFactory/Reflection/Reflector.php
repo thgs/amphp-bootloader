@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\RequestHandlerFactory\Reflection;
+namespace thgs\Bootstrap\RequestHandlerFactory\Reflection;
 
 interface Reflector
 {

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\RequestHandlerFactory;
+namespace thgs\Bootstrap\RequestHandlerFactory;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
@@ -14,13 +14,13 @@ use Amp\Http\Server\StaticContent\DocumentRoot;
 use Amp\Http\Server\StaticContent\StaticResource;
 use Amp\Websocket\Server\Websocket;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\Config\Route\Delegate;
-use thgs\Bootloader\Config\Route\Fallback;
-use thgs\Bootloader\Config\Route\Route;
-use thgs\Bootloader\Config\Route\Websocket as WebsocketRoute;
-use thgs\Bootloader\DependencyInjection\Injector;
-use thgs\Bootloader\RequestHandlerFactory;
-use thgs\Bootloader\RequestHandlerFactory\Reflection\NativeReflector;
+use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Fallback;
+use thgs\Bootstrap\Config\Route\Route;
+use thgs\Bootstrap\Config\Route\Websocket as WebsocketRoute;
+use thgs\Bootstrap\DependencyInjection\Injector;
+use thgs\Bootstrap\RequestHandlerFactory;
+use thgs\Bootstrap\RequestHandlerFactory\Reflection\NativeReflector;
 use function Amp\Http\Server\Middleware\stackMiddleware;
 
 class DefaultRequestHandlerFactory implements RequestHandlerFactory

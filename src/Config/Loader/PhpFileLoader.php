@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config\Loader;
+namespace thgs\Bootstrap\Config\Loader;
 
-use thgs\Bootloader\Config\ConfigLoader;
-use thgs\Bootloader\Config\Configuration;
-use thgs\Bootloader\Exception\ConfigurationException;
+use thgs\Bootstrap\Config\ConfigLoader;
+use thgs\Bootstrap\Config\Configuration;
+use thgs\Bootstrap\Exception\ConfigurationException;
 
 final readonly class PhpFileLoader implements ConfigLoader
 {

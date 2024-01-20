@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\DependencyInjection;
+namespace thgs\Bootstrap\DependencyInjection;
 
-use thgs\Bootloader\Config\Route\Delegate;
-use thgs\Bootloader\Config\Route\Fallback;
-use thgs\Bootloader\Config\Route\Route;
-use thgs\Bootloader\Config\Route\Websocket;
+use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Fallback;
+use thgs\Bootstrap\Config\Route\Route;
+use thgs\Bootstrap\Config\Route\Websocket;
 
 interface Injector
 {

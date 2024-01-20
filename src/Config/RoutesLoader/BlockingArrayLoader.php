@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config\RoutesLoader;
+namespace thgs\Bootstrap\Config\RoutesLoader;
 
-use thgs\Bootloader\Config\Route\RouteRegistry;
-use thgs\Bootloader\Config\RoutesLoader;
-use thgs\Bootloader\Exception\ConfigurationException;
+use thgs\Bootstrap\Config\Route\RouteRegistry;
+use thgs\Bootstrap\Config\RoutesLoader;
+use thgs\Bootstrap\Exception\ConfigurationException;
 
 /**
  * A probably blocking AND eager loader. Calls to load() will

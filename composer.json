@@ -22,7 +22,7 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "thgs\\Bootloader\\": "src/"
+            "thgs\\Bootstrap\\": "src/"
         }
     },
     "authors": [

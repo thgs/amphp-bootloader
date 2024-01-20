@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-use thgs\Bootloader\Config\Route;
+use thgs\Bootstrap\Config\Route;
 
 return [
     'routes' => [

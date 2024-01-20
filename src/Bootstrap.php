@@ -1,14 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader;
+namespace thgs\Bootstrap;
 
 use Amp\Http\Server\DefaultErrorHandler;
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\RequestHandler;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\Config\Configuration;
-use thgs\Bootloader\DependencyInjection\Injector;
+use thgs\Bootstrap\Config\Configuration;
+use thgs\Bootstrap\DependencyInjection\Injector;
 use function Amp\trapSignal;
 
 final class Bootstrap

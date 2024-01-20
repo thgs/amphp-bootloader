@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader;
+namespace thgs\Bootstrap;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
@@ -8,9 +8,9 @@ use Amp\Http\Server\RequestHandler;
 use Amp\Websocket\Server\WebsocketAcceptor;
 use Amp\Websocket\Server\WebsocketClientHandler;
 use Psr\Log\LoggerInterface;
-use thgs\Bootloader\Config\Route\Delegate;
-use thgs\Bootloader\Config\Route\Route;
-use thgs\Bootloader\Config\Route\Websocket;
+use thgs\Bootstrap\Config\Route\Delegate;
+use thgs\Bootstrap\Config\Route\Route;
+use thgs\Bootstrap\Config\Route\Websocket;
 
 interface RequestHandlerFactory
 {

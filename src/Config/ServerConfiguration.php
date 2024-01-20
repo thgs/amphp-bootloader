@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootloader\Config;
+namespace thgs\Bootstrap\Config;
 
 use Amp\Http\Server\DefaultErrorHandler;
 use Amp\Http\Server\Middleware\AllowedMethodsMiddleware;
