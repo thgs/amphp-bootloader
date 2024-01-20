@@ -92,11 +92,6 @@
       <code>AurynInjector</code>
     </UnusedClass>
   </file>
-  <file src="src/DependencyInjection/Injector.php">
-    <PossiblyUnusedMethod>
-      <code>newInstance</code>
-    </PossiblyUnusedMethod>
-  </file>
   <file src="src/RequestHandlerFactory/DefaultRequestHandlerFactory.php">
     <MixedArrayAccess>
       <code>$requestValues[$name]</code>

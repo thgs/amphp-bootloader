@@ -32,7 +32,7 @@ class RouterBuilder
     ) {
     }
 
-    public function add(string $name, Route | Delegate | Group | Websocket $route): void
+    public function add(string $name, Route|Delegate|Group|Websocket $route): void
     {
         $this->routes[$name] = $route;
     }
@@ -73,11 +73,11 @@ class RouterBuilder
         return $router;
     }
 
-    private function addRoute(Router $router, Route | Delegate | Group | Websocket $route): void
+    private function addRoute(Router $router, Route|Delegate|Websocket|Group $route): void
     {
         if ($route instanceof Group) {
-            foreach ($route as $groupedRoute) {
-                $this->addRoute($router, $groupedRoute);
+            foreach ($route as $memberRoute) {
+                $this->addRoute($router, $memberRoute);
             }
             return;
         }
@@ -86,11 +86,11 @@ class RouterBuilder
         $uri = $route->uri;
 
         if ($route instanceof Route) {
-            $handler = $this->handlerFactory->createRequestHandler($route->handler);
+            $handler = $this->handlerFactory->createRequestHandler($route->handler, $route);
         }
 
         if ($route instanceof Delegate) {
-            $handler = $this->handlerFactory->createDelegateRequestHandler($route->delegate, $route->action);
+            $handler = $this->handlerFactory->createDelegateRequestHandler($route->delegate, $route->action, $route);
         }
 
         if ($route instanceof Websocket) {
@@ -98,7 +98,8 @@ class RouterBuilder
                 $this->httpServer,
                 $this->logger,
                 $route->acceptor,
-                $route->clientHandler
+                $route->clientHandler,
+                $route
             );
         }
 
@@ -111,7 +112,7 @@ class RouterBuilder
         }
 
         if (!empty($route->middleware)) {
-            $handler = $this->handlerFactory->createMiddlewareStack($handler, ...$route->middleware);
+            $handler = $this->handlerFactory->createMiddlewareStack($handler, $route, ...$route->middleware);
         }
 
         $router->addRoute($method, $uri, $handler);

@@ -14,6 +14,10 @@ use Amp\Http\Server\StaticContent\DocumentRoot;
 use Amp\Http\Server\StaticContent\StaticResource;
 use Amp\Websocket\Server\Websocket;
 use Psr\Log\LoggerInterface;
+use thgs\Bootloader\Config\Route\Delegate;
+use thgs\Bootloader\Config\Route\Fallback;
+use thgs\Bootloader\Config\Route\Route;
+use thgs\Bootloader\Config\Route\Websocket as WebsocketRoute;
 use thgs\Bootloader\DependencyInjection\Injector;
 use thgs\Bootloader\RequestHandlerFactory;
 use thgs\Bootloader\RequestHandlerFactory\Reflection\NativeReflector;
@@ -27,12 +31,9 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     ) {
     }
 
-    /**
-     * @param class-string $class
-     */
-    public function createRequestHandler(string $class): RequestHandler
+    public function createRequestHandler(string $class, Route|Delegate|WebsocketRoute|Fallback|null $forRoute = null): RequestHandler
     {
-        $created = $this->injector->create($class);
+        $created = $this->injector->create($class, $forRoute);
         if (!$created instanceof RequestHandler) {
             throw new \Exception("Class $class is not a RequestHandler");
         }
@@ -42,9 +43,12 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     /**
      * @param class-string $class
      */
-    public function createDelegateRequestHandler(string $class, string $delegateMethod): RequestHandler
-    {
-        $delegate = $this->injector->create($class);
+    public function createDelegateRequestHandler(
+        string $class,
+        string $delegateMethod,
+        Route|Delegate|WebsocketRoute|null $forRoute = null
+    ): RequestHandler {
+        $delegate = $this->injector->create($class, $forRoute);
 
         if (!\method_exists($delegate, $delegateMethod)) {
             throw new \Exception("$delegateMethod does not exist in $class");
@@ -80,10 +84,11 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
         HttpServer $httpServer,
         LoggerInterface $logger,
         string $acceptorClass,
-        string $clientHandlerClass
+        string $clientHandlerClass,
+        Route|Delegate|WebsocketRoute|null $forRoute = null
     ): RequestHandler {
-        $acceptorInstance = $this->injector->create($acceptorClass);
-        $clientHandlerInstance = $this->injector->create($clientHandlerClass);
+        $acceptorInstance = $this->injector->create($acceptorClass, $forRoute);
+        $clientHandlerInstance = $this->injector->create($clientHandlerClass, $forRoute);
 
         // todo: two more arguments optionally.
         return new Websocket($httpServer, $logger, $acceptorInstance, $clientHandlerInstance);
@@ -95,7 +100,7 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
         string $fallback
     ): RequestHandler {
         return match(\true) {
-            \class_exists($fallback) => $this->createRequestHandler($fallback),
+            \class_exists($fallback) => $this->createRequestHandler($fallback, new Fallback()),
             \is_dir($fallback) => new DocumentRoot($httpServer, $errorHandler, $fallback),
             \is_file($fallback) => new StaticResource($httpServer, $errorHandler, $fallback),
             default => throw new \Exception('Cannot create fallback handler')
@@ -105,13 +110,16 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
     /**
      * @param class-string ...$middlewares
      */
-    public function createMiddlewareStack(RequestHandler $mainHandler, string ...$middlewares): RequestHandler
-    {
+    public function createMiddlewareStack(
+        RequestHandler $mainHandler,
+        Route|Delegate|WebsocketRoute|null $forRoute,
+        string ...$middlewares
+    ): RequestHandler {
         // todo: support array on $middleware elements so that they can add configuration
         /** @var Middleware[] $instances */
         $instances = [];
         foreach ($middlewares as $middleware) {
-            $created = $this->injector->create($middleware);
+            $created = $this->injector->create($middleware, $forRoute);
 
             if (!$created instanceof Middleware) {
                 throw new \Exception("$middleware does not implement Middleware interface");
