@@ -136,28 +136,24 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
      */
     private function createValueMapping(array $parameterTypes): array
     {
-        // todo: some reference here may be beneficial
+        /** @var array<string, callable> $valueMapping */
+        static $valueMapping = [];
+
+        if (empty($valueMapping)) {
+            $valueMapping = [
+                "int" => static function (Request $request, string $x): int { return (int) $x; },
+                "string" => static function (Request $request, string $x): string { return $x; },
+                "float" => static function (Request $request, string $x): float { return (float) $x; },
+                "bool" => static function (Request $request, string $x): bool { return (bool) $x; },
+                "null" => static function (Request $request, string $x): string { return $x; },
+            ];
+        }
 
         $mapped = [];
         foreach ($parameterTypes as $name => $type) {
-            $mapped[$name] = $this->mapForType($type);
+            $mapped[$name] = $valueMapping[$type] ?? $this->resolveThroughMinorDI($type);
         }
         return $mapped;
-    }
-
-    /**
-     * @param string|class-string $type
-     */
-    private function mapForType(string $type): callable
-    {
-        return match ($type) {
-            "int" => function (Request $request, string $x): int { return (int) $x; },
-            "string" => function (Request $request, string $x): string { return $x; },
-            "float" => function (Request $request, string $x): float { return (float) $x; },
-            "bool" => function (Request $request, string $x): bool { return (bool) $x; },
-            "null" => function (Request $request, string $x) { return $x; },
-            default => $this->resolveThroughMinorDI($type)
-        };
     }
 
     /**
