@@ -3,7 +3,7 @@
 namespace thgs\Bootstrap\Config\Route;
 
 use Amp\Http\Server\RequestHandler;
-use thgs\Bootstrap\RouterBuilder;
+use thgs\Bootstrap\Config\RouterBuilder;
 
 /**
  * @psalm-import-type RouteConstructor from RouterBuilder

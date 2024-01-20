@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace thgs\Bootstrap;
+namespace thgs\Bootstrap\Config;
 
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
@@ -9,9 +9,11 @@ use Amp\Http\Server\Router;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\Route\Delegate;
 use thgs\Bootstrap\Config\Route\Group;
+use thgs\Bootstrap\Config\Route\Path;
 use thgs\Bootstrap\Config\Route\Route;
 use thgs\Bootstrap\Config\Route\RouteRegistry;
 use thgs\Bootstrap\Config\Route\Websocket;
+use thgs\Bootstrap\RequestHandlerFactory;
 
 /**
  * @psalm-type RouteConstructor = Route|Delegate|Group|Websocket
@@ -19,7 +21,7 @@ use thgs\Bootstrap\Config\Route\Websocket;
 class RouterBuilder
 {
     /**
-     * @var array<string, Route|Delegate|Group|Websocket>
+     * @var array<string, Route|Delegate|Group|Websocket|Path>
      */
     private array $routes = [];
 
@@ -32,7 +34,7 @@ class RouterBuilder
     ) {
     }
 
-    public function add(string $name, Route|Delegate|Group|Websocket $route): void
+    public function add(string $name, Route|Delegate|Group|Websocket|Path $route): void
     {
         $this->routes[$name] = $route;
     }
@@ -59,7 +61,7 @@ class RouterBuilder
             : new Router($this->httpServer, $this->logger, $errorHandler);
 
         foreach ($this->routes as $route) {
-            $this->addRoute($router, $route);
+            $this->addRoute($router, $route, $errorHandler);
         }
 
         if ($this->fallback) {
@@ -74,11 +76,11 @@ class RouterBuilder
         return $router;
     }
 
-    private function addRoute(Router $router, Route|Delegate|Websocket|Group $route): void
+    private function addRoute(Router $router, Route|Delegate|Websocket|Path|Group $route, ErrorHandler $errorHandler): void
     {
         if ($route instanceof Group) {
             foreach ($route as $memberRoute) {
-                $this->addRoute($router, $memberRoute);
+                $this->addRoute($router, $memberRoute, $errorHandler);
             }
             return;
         }
@@ -86,27 +88,30 @@ class RouterBuilder
         $method = $route->method;
         $uri = $route->uri;
 
-        if ($route instanceof Route) {
-            $handler = $this->handlerFactory->createRequestHandler($route->handler, $route);
-        }
-
-        if ($route instanceof Delegate) {
-            $handler = $this->handlerFactory->createDelegateRequestHandler($route->delegate, $route->action, $route);
-        }
-
-        if ($route instanceof Websocket) {
-            $handler = $this->handlerFactory->createWebsocketRequestHandler(
+        $handler = match (\get_class($route)) {
+            Route::class => $this->handlerFactory->createRequestHandler(
+                $route->handler,
+                $route
+            ),
+            Delegate::class => $this->handlerFactory->createDelegateRequestHandler(
+                $route->delegate,
+                $route->action,
+                $route
+            ),
+            Websocket::class => $this->handlerFactory->createWebsocketRequestHandler(
                 $this->httpServer,
                 $this->logger,
                 $route->acceptor,
                 $route->clientHandler,
                 $route
-            );
-        }
-
-        if (!isset($handler)) {
-            throw new \Exception("Unable to create handler for route $method . $uri");
-        }
+            ),
+            Path::class => $this->handlerFactory->createPathRequestHandler(
+                $this->httpServer,
+                $errorHandler,
+                $route
+            ),
+            default => throw new \Exception("Unable to create handler for route $method . $uri")
+        };
 
         if (!$handler instanceof RequestHandler) {
             throw new \Exception("Handler for $uri is not a RequestHandler");

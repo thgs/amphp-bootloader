@@ -16,7 +16,9 @@ use Monolog\Logger;
 use Monolog\Processor\PsrLogMessageProcessor;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\LoggingConfiguration;
+use thgs\Bootstrap\Config\PathResolver\DefaultPathResolver;
 use thgs\Bootstrap\Config\RequestHandlerConfiguration;
+use thgs\Bootstrap\Config\RouterBuilder;
 use thgs\Bootstrap\Config\RoutesLoader\BlockingArrayLoader;
 use thgs\Bootstrap\Config\ServerConfiguration;
 use thgs\Bootstrap\DependencyInjection\Injector;
@@ -112,8 +114,10 @@ class Bootloader
         ?int $cacheSize = null
     ): RequestHandler {
         $loader = new BlockingArrayLoader($config->routeFile);
+
+        // todo: allow injecting a different factory and a different path resolver
         $builder = new RouterBuilder(
-            new DefaultRequestHandlerFactory($injector, new NativeReflector()),
+            new DefaultRequestHandlerFactory($injector, new NativeReflector(), new DefaultPathResolver($config->publicDir)),
             $httpServer,
             $logger
         );

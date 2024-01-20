@@ -43,6 +43,11 @@
       <code>__construct</code>
     </PossiblyUnusedMethod>
   </file>
+  <file src="src/Config/Route/Path.php">
+    <PossiblyUnusedMethod>
+      <code>__construct</code>
+    </PossiblyUnusedMethod>
+  </file>
   <file src="src/Config/Route/Websocket.php">
     <PossiblyUnusedMethod>
       <code>__construct</code>

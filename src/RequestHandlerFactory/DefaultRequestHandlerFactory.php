@@ -14,8 +14,10 @@ use Amp\Http\Server\StaticContent\DocumentRoot;
 use Amp\Http\Server\StaticContent\StaticResource;
 use Amp\Websocket\Server\Websocket;
 use Psr\Log\LoggerInterface;
+use thgs\Bootstrap\Config\PathResolver;
 use thgs\Bootstrap\Config\Route\Delegate;
 use thgs\Bootstrap\Config\Route\Fallback;
+use thgs\Bootstrap\Config\Route\Path;
 use thgs\Bootstrap\Config\Route\Route;
 use thgs\Bootstrap\Config\Route\Websocket as WebsocketRoute;
 use thgs\Bootstrap\DependencyInjection\Injector;
@@ -27,12 +29,15 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
 {
     public function __construct(
         private Injector $injector,
-        private NativeReflector $reflector
+        private NativeReflector $reflector,
+        private PathResolver $pathResolver
     ) {
     }
 
-    public function createRequestHandler(string $class, Route|Delegate|WebsocketRoute|Fallback|null $forRoute = null): RequestHandler
-    {
+    public function createRequestHandler(
+        string $class,
+        Route|Delegate|WebsocketRoute|Fallback|null $forRoute = null
+    ): RequestHandler {
         $created = $this->injector->create($class, $forRoute);
         if (!$created instanceof RequestHandler) {
             throw new \Exception("Class $class is not a RequestHandler");
@@ -85,13 +90,27 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
         LoggerInterface $logger,
         string $acceptorClass,
         string $clientHandlerClass,
-        Route|Delegate|WebsocketRoute|null $forRoute = null
+        ?WebsocketRoute $forRoute = null
     ): RequestHandler {
         $acceptorInstance = $this->injector->create($acceptorClass, $forRoute);
         $clientHandlerInstance = $this->injector->create($clientHandlerClass, $forRoute);
 
         // todo: two more arguments optionally.
         return new Websocket($httpServer, $logger, $acceptorInstance, $clientHandlerInstance);
+    }
+
+    public function createPathRequestHandler(
+        HttpServer $httpServer,
+        ErrorHandler $errorHandler,
+        Path $forRoute
+    ): RequestHandler {
+        // todo: add support for filesystem
+        $filesystem = null;
+        $resolved = $this->pathResolver->resolve($forRoute);
+
+        return $resolved instanceof PathResolver\ResolvedDir
+            ? new DocumentRoot($httpServer, $errorHandler, $resolved->path, $filesystem)
+            : new StaticResource($httpServer, $errorHandler, $resolved->path);
     }
 
     public function createFallbackRequestHandler(
@@ -112,7 +131,7 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
      */
     public function createMiddlewareStack(
         RequestHandler $mainHandler,
-        Route|Delegate|WebsocketRoute|null $forRoute,
+        Route|Delegate|WebsocketRoute|Path|null $forRoute,
         string ...$middlewares
     ): RequestHandler {
         // todo: support array on $middleware elements so that they can add configuration

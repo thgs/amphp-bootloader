@@ -3,7 +3,7 @@
 namespace thgs\Bootstrap\Config\Route;
 
 use Amp\Http\Server\Middleware;
-use thgs\Bootstrap\RouterBuilder;
+use thgs\Bootstrap\Config\RouterBuilder;
 use Traversable;
 
 /**
