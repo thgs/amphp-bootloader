@@ -41,7 +41,6 @@ final class Bootstrap
         $this->injector->register($this->logger, LoggerInterface::class);
 
         if ($configuration->session !== null) {
-            // todo: this is stacked on start() instead of the constructor in SocketHttpServer
             $sessionMiddleware = $this->bootloader->loadSession($configuration->session);
             $this->injector->register($sessionMiddleware, SessionMiddleware::class);
         }
