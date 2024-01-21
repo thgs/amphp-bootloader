@@ -2,10 +2,12 @@
 
 namespace thgs\Bootstrap;
 
+use Amp\Http\Cookie\CookieAttributes;
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\Middleware\ForwardedHeaderType;
 use Amp\Http\Server\RequestHandler;
+use Amp\Http\Server\Session\SessionMiddleware;
 use Amp\Http\Server\SocketHttpServer;
 use Amp\Log\ConsoleFormatter;
 use Amp\Log\StreamHandler;
@@ -21,6 +23,7 @@ use thgs\Bootstrap\Config\RequestHandlerConfiguration;
 use thgs\Bootstrap\Config\RouterBuilder;
 use thgs\Bootstrap\Config\RoutesLoader\BlockingArrayLoader;
 use thgs\Bootstrap\Config\ServerConfiguration;
+use thgs\Bootstrap\Config\SessionConfiguration;
 use thgs\Bootstrap\DependencyInjection\Injector;
 use thgs\Bootstrap\RequestHandlerFactory\DefaultRequestHandlerFactory;
 use thgs\Bootstrap\RequestHandlerFactory\Reflection\NativeReflector;
@@ -103,6 +106,24 @@ class Bootloader
         }
 
         return $httpServer;
+    }
+
+    public function loadSession(
+        SessionConfiguration $config
+    ): SessionMiddleware {
+        $attributes = CookieAttributes::default();
+
+        if ($config->expiry) {
+            // todo: does expiry work? (or how does expiry work?)
+            $attributes->withExpiry(new \DateTimeImmutable($config->expiry));
+        }
+
+        // todo: support storage and parameters and requestAttribute and the rest
+
+        return new SessionMiddleware(
+            cookieAttributes: $attributes,
+            cookieName: $config->cookieName,
+        );
     }
 
     public function loadHandler(

@@ -16,7 +16,6 @@
     </PossiblyUnusedMethod>
     <PossiblyUnusedProperty>
       <code>$custom</code>
-      <code>$session</code>
     </PossiblyUnusedProperty>
   </file>
   <file src="src/Config/Loader/PhpFileLoader.php">
@@ -87,8 +86,6 @@
       <code>__construct</code>
     </PossiblyUnusedMethod>
     <PossiblyUnusedProperty>
-      <code>$cookieName</code>
-      <code>$expiry</code>
       <code>$secureCookie</code>
       <code>$sessionLifetime</code>
       <code>$sessionStorage</code>

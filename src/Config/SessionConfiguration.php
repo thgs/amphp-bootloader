@@ -22,6 +22,10 @@ final readonly class SessionConfiguration
          * @var int
          */
         public int $sessionLifetime = LocalSessionStorage::DEFAULT_SESSION_LIFETIME,
+
+        /**
+         * @var non-empty-string
+         */
         public string $cookieName = self::DEFAULT_COOKIE_NAME,
 
         /**
