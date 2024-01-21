@@ -6,6 +6,7 @@ use Amp\Http\Server\DefaultErrorHandler;
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\RequestHandler;
+use Amp\Http\Server\Session\SessionMiddleware;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\Configuration;
 use thgs\Bootstrap\DependencyInjection\Injector;
@@ -57,10 +58,8 @@ final class Bootstrap
 
         if ($configuration->session !== null) {
             // todo: this is stacked on start() instead of the constructor in SocketHttpServer
-            $this->requestHandler = stackMiddleware(
-                $this->requestHandler,
-                $this->bootloader->loadSession($configuration->session)
-            );
+            $sessionMiddleware = $this->bootloader->loadSession($configuration->session);
+            $this->injector->register($sessionMiddleware, SessionMiddleware::class);
         }
 
         $someBootTime = (\hrtime(true) - $initTime) / 1_000_000_000;
