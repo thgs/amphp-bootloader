@@ -29,11 +29,12 @@ final readonly class SessionConfiguration
         public string $cookieName = self::DEFAULT_COOKIE_NAME,
 
         /**
-         * Use `DateTime::modify()` syntax or `null` for no expiry.
+         * This provides a static expiry.
+         * You can use any string that can be passed to \DateTime.
          *
          * @var string|null
          */
-        public ?string $expiry = '+30 minute',
+        public ?string $expiry = null,
         public bool $secureCookie = false,
     ) {
     }

@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\RequestHandlerFactory;
 
+use Amp\File\Filesystem;
 use Amp\Http\Server\ErrorHandler;
 use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\Middleware;
@@ -104,8 +105,12 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
         ErrorHandler $errorHandler,
         Path $forRoute
     ): RequestHandler {
-        // todo: add support for filesystem
         $filesystem = null;
+        $filesystemDriver = $forRoute->filesystemDriver;
+        if ($filesystemDriver !== null) {
+            $filesystem = new Filesystem($this->injector->create($filesystemDriver));
+        }
+
         $resolved = $this->pathResolver->resolve($forRoute);
 
         return $resolved instanceof PathResolver\ResolvedDir
@@ -128,6 +133,10 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
 
         // todo: support filesystem
         $filesystem = null;
+        $filesystemDriver = $fallback->filesystemDriver;
+        if ($filesystemDriver !== null) {
+            $filesystem = new Filesystem($this->injector->create($filesystemDriver));
+        }
 
         $resolved = $this->pathResolver->resolve($fallback);
         return $resolved instanceof PathResolver\ResolvedDir

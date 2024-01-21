@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\Config\Route;
 
+use Amp\File\FilesystemDriver;
 use Amp\Http\Server\Middleware;
 
 readonly class Path
@@ -20,6 +21,14 @@ readonly class Path
          * @var bool
          */
         public bool $isDir = true,
+
+        /**
+         * Only usable for directories currently.
+         *
+         * @var class-string<FilesystemDriver>|null
+         */
+        public ?string $filesystemDriver = null,
+
         /**
          * @var class-string<Middleware>[]
          */

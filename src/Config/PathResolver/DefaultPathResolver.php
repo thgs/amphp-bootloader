@@ -5,6 +5,7 @@ namespace thgs\Bootstrap\Config\PathResolver;
 use thgs\Bootstrap\Config\PathResolver;
 use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Path;
+use thgs\Bootstrap\Exception\MissingPathDefinitionException;
 
 class DefaultPathResolver implements PathResolver
 {
@@ -12,12 +13,12 @@ class DefaultPathResolver implements PathResolver
     {
     }
 
+    /** @throws MissingPathDefinitionException */
     public function resolve(Path|Fallback $route): ResolvedFile|ResolvedDir
     {
         $givenPath = $route->path;
         if ($givenPath === null) {
-            // todo: improve this message
-            throw new \Exception('Missing path definition for route ' . \get_class($route));
+            throw new MissingPathDefinitionException($route);
         }
 
         return match ($route->isDir) {

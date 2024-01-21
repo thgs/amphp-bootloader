@@ -12,7 +12,7 @@ final readonly class PhpFileLoader implements ConfigLoader
 
     public function __construct(string $file)
     {
-        // todo: is_readable is blocking - do we care?
+        // acceptable to block here as this class will be used in initialisation
         if (!\is_readable($file)) {
             throw ConfigurationException::unreadableConfigFile($file);
         }

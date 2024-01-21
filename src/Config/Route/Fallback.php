@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\Config\Route;
 
+use Amp\File\FilesystemDriver;
 use Amp\Http\Server\Middleware;
 use Amp\Http\Server\RequestHandler;
 
@@ -26,6 +27,13 @@ final readonly class Fallback
          * @var bool
          */
         public bool $isDir = true,
+
+        /**
+         * Only usable for directories currently.
+         *
+         * @var class-string<FilesystemDriver>|null
+         */
+        public ?string $filesystemDriver = null,
 
         /**
          * @var class-string<Middleware>[]
