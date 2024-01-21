@@ -33,7 +33,7 @@ class AurynInjector implements InjectorInterface
         // todo: expand on this, missing contextual
         $this->auryn->share($instance);
 
-        if ($definitionIdentifier !== null && $definitionIdentifier !== get_class($instance)) {
+        if ($definitionIdentifier !== null && $definitionIdentifier !== \get_class($instance)) {
             $this->auryn->alias($definitionIdentifier, \get_class($instance));
         }
     }

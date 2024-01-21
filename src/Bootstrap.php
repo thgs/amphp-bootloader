@@ -10,7 +10,6 @@ use Amp\Http\Server\Session\SessionMiddleware;
 use Psr\Log\LoggerInterface;
 use thgs\Bootstrap\Config\Configuration;
 use thgs\Bootstrap\DependencyInjection\Injector;
-use function Amp\Http\Server\Middleware\stackMiddleware;
 use function Amp\trapSignal;
 
 final class Bootstrap
@@ -61,7 +60,6 @@ final class Bootstrap
                 $cacheSize = null           // todo: add this
             );
         }
-
 
         $someBootTime = (\hrtime(true) - $initTime) / 1_000_000_000;
         $this->logger->info("Booted at some $someBootTime seconds");
