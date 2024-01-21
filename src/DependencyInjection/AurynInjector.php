@@ -27,4 +27,14 @@ class AurynInjector implements InjectorInterface
 
         return $object;
     }
+
+    public function register(object $instance, ?string $definitionIdentifier = null): void
+    {
+        // todo: expand on this, missing contextual
+        $this->auryn->share($instance);
+
+        if ($definitionIdentifier !== null) {
+            $this->auryn->alias($definitionIdentifier, \get_class($instance));
+        }
+    }
 }

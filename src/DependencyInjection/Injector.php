@@ -18,4 +18,9 @@ interface Injector
      * @return T
      */
     public function create(string $class, Route|Delegate|Websocket|Fallback|Path|null $forRoute = null): object;
+
+    /**
+     * @param string|class-string|null $definitionIdentifier
+     */
+    public function register(object $instance, ?string $definitionIdentifier = null): void;
 }

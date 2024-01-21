@@ -36,6 +36,9 @@ final class Bootstrap
 
         $this->bootloader = new Bootloader($this->configuration->logging);
         $this->logger = $this->bootloader->logger;
+
+        $this->injector->register($this->logger, LoggerInterface::class);
+
         $this->httpServer = $this->bootloader->loadServerConfig($configuration->server);
 
         if ($this->requestHandler instanceof RequestHandler) {
