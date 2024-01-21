@@ -41,6 +41,12 @@ final class Bootstrap
 
         $this->injector->register($this->logger, LoggerInterface::class);
 
+        if ($configuration->session !== null) {
+            // todo: this is stacked on start() instead of the constructor in SocketHttpServer
+            $sessionMiddleware = $this->bootloader->loadSession($configuration->session);
+            $this->injector->register($sessionMiddleware, SessionMiddleware::class);
+        }
+
         $this->httpServer = $this->bootloader->loadServerConfig($configuration->server);
 
         if ($this->requestHandler instanceof RequestHandler) {
@@ -56,11 +62,6 @@ final class Bootstrap
             );
         }
 
-        if ($configuration->session !== null) {
-            // todo: this is stacked on start() instead of the constructor in SocketHttpServer
-            $sessionMiddleware = $this->bootloader->loadSession($configuration->session);
-            $this->injector->register($sessionMiddleware, SessionMiddleware::class);
-        }
 
         $someBootTime = (\hrtime(true) - $initTime) / 1_000_000_000;
         $this->logger->info("Booted at some $someBootTime seconds");
