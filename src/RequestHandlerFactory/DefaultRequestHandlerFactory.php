@@ -133,6 +133,10 @@ class DefaultRequestHandlerFactory implements RequestHandlerFactory
 
         // todo: support filesystem
         $filesystem = null;
+        $filesystemDriver = $fallback->filesystemDriver;
+        if ($filesystemDriver !== null) {
+            $filesystem = new Filesystem($this->injector->create($filesystemDriver));
+        }
 
         $resolved = $this->pathResolver->resolve($fallback);
         return $resolved instanceof PathResolver\ResolvedDir

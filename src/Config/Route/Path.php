@@ -23,6 +23,8 @@ readonly class Path
         public bool $isDir = true,
 
         /**
+         * Only usable for directories currently.
+         *
          * @var class-string<FilesystemDriver>|null
          */
         public ?string $filesystemDriver = null,
