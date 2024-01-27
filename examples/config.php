@@ -8,7 +8,6 @@ use thgs\Bootstrap\Config\ServerConfiguration;
 require dirname(__DIR__) . '/vendor/autoload.php';
 require "HelloHandler.php";
 require "AuthMiddleware.php";
-require "DelegatedHandler.php";
 require "HomeHandler.php";
 
 return new Configuration(

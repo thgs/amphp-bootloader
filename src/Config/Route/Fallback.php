@@ -40,7 +40,7 @@ final readonly class Fallback
          */
         public array $middleware = []
 
-        // todo: add delegate / websocket ?
+        // todo: add websocket ?
     ) {
     }
 }

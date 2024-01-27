@@ -8,7 +8,7 @@ use Traversable;
 
 /**
  * @psalm-import-type RouteConstructor from RouterBuilder
- * @implements \IteratorAggregate<Route|Delegate|Group>
+ * @implements \IteratorAggregate<Route|Group>
  */
 readonly class Group implements \IteratorAggregate
 {
@@ -29,16 +29,6 @@ readonly class Group implements \IteratorAggregate
                     $this->prefix . $route->uri,
                     $route->method,
                     $route->handler,
-                    $this->middleware
-                );
-            }
-
-            if ($route instanceof Delegate) {
-                $newRoute = new Delegate(
-                    $this->prefix . $route->uri,
-                    $route->method,
-                    $route->delegate,
-                    $route->action,
                     $this->middleware
                 );
             }
