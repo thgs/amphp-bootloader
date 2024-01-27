@@ -1,5 +1,7 @@
 ## amphp-bootstrap
 
+Note that this package is at an **experimental/exploratory** stage.
+
 This is a package that provides a way to boot an Amphp HTTP server.
 It exports configuration objects that are used as input and loaders for the config
 for a few basic formats. It requires a container implementation to be adapted
