@@ -26,7 +26,6 @@ use thgs\Bootstrap\Config\ServerConfiguration;
 use thgs\Bootstrap\Config\SessionConfiguration;
 use thgs\Bootstrap\DependencyInjection\Injector;
 use thgs\Bootstrap\RequestHandlerFactory\DefaultRequestHandlerFactory;
-use thgs\Bootstrap\RequestHandlerFactory\Reflection\NativeReflector;
 use function Amp\ByteStream\getStdout;
 
 class Bootloader
@@ -138,7 +137,7 @@ class Bootloader
 
         // todo: allow injecting a different factory and a different path resolver
         $builder = new RouterBuilder(
-            new DefaultRequestHandlerFactory($injector, new NativeReflector(), new DefaultPathResolver($config->publicDir)),
+            new DefaultRequestHandlerFactory($injector, new DefaultPathResolver($config->publicDir)),
             $httpServer,
             $logger
         );

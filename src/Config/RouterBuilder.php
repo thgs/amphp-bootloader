@@ -7,7 +7,6 @@ use Amp\Http\Server\HttpServer;
 use Amp\Http\Server\RequestHandler;
 use Amp\Http\Server\Router;
 use Psr\Log\LoggerInterface;
-use thgs\Bootstrap\Config\Route\Delegate;
 use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Group;
 use thgs\Bootstrap\Config\Route\Path;
@@ -17,12 +16,12 @@ use thgs\Bootstrap\Config\Route\Websocket;
 use thgs\Bootstrap\RequestHandlerFactory;
 
 /**
- * @psalm-type RouteConstructor = Route|Delegate|Group|Websocket
+ * @psalm-type RouteConstructor = Route|Group|Websocket
  */
 class RouterBuilder
 {
     /**
-     * @var array<string, Route|Delegate|Group|Websocket|Path>
+     * @var array<string, Route|Group|Websocket|Path>
      */
     private array $routes = [];
 
@@ -35,7 +34,7 @@ class RouterBuilder
     ) {
     }
 
-    public function add(string $name, Route|Delegate|Group|Websocket|Path $route): void
+    public function add(string $name, Route|Group|Websocket|Path $route): void
     {
         $this->routes[$name] = $route;
     }
@@ -87,7 +86,7 @@ class RouterBuilder
         return $router;
     }
 
-    private function addRoute(Router $router, Route|Delegate|Websocket|Path|Group $route, ErrorHandler $errorHandler): void
+    private function addRoute(Router $router, Route|Websocket|Path|Group $route, ErrorHandler $errorHandler): void
     {
         if ($route instanceof Group) {
             foreach ($route as $memberRoute) {
@@ -102,11 +101,6 @@ class RouterBuilder
         $handler = match (\get_class($route)) {
             Route::class => $this->handlerFactory->createRequestHandler(
                 $route->handler,
-                $route
-            ),
-            Delegate::class => $this->handlerFactory->createDelegateRequestHandler(
-                $route->delegate,
-                $route->action,
                 $route
             ),
             Websocket::class => $this->handlerFactory->createWebsocketRequestHandler(

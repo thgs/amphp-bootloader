@@ -8,7 +8,6 @@ use Amp\Http\Server\RequestHandler;
 use Amp\Websocket\Server\WebsocketAcceptor;
 use Amp\Websocket\Server\WebsocketClientHandler;
 use Psr\Log\LoggerInterface;
-use thgs\Bootstrap\Config\Route\Delegate;
 use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\Path;
 use thgs\Bootstrap\Config\Route\Route;
@@ -22,15 +21,6 @@ interface RequestHandlerFactory
     public function createRequestHandler(
         string $class,
         ?Route $forRoute = null
-    ): RequestHandler;
-
-    /**
-     * @param class-string $class
-     */
-    public function createDelegateRequestHandler(
-        string $class,
-        string $delegateMethod,
-        ?Delegate $forRoute = null
     ): RequestHandler;
 
     /**
@@ -62,7 +52,7 @@ interface RequestHandlerFactory
      */
     public function createMiddlewareStack(
         RequestHandler $mainHandler,
-        Route|Delegate|Websocket|Path|Fallback|null $forRoute,
+        Route|Websocket|Path|Fallback|null $forRoute,
         string ...$middlewares
     ): RequestHandler;
 }
