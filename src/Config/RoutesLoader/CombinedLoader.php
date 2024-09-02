@@ -6,6 +6,7 @@ use thgs\Bootstrap\Config\Route\Fallback;
 use thgs\Bootstrap\Config\Route\RouteRegistry;
 use thgs\Bootstrap\Config\RoutesLoader;
 
+/** @api */
 final readonly class CombinedLoader implements RoutesLoader
 {
     public function __construct(

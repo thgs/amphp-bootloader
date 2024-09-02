@@ -5,6 +5,7 @@ namespace thgs\Bootstrap\Config\Route;
 use Amp\File\FilesystemDriver;
 use Amp\Http\Server\Middleware;
 
+/** @api */
 readonly class Path
 {
     public function __construct(

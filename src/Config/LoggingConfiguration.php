@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\Config;
 
+/** @api */
 final readonly class LoggingConfiguration
 {
     public function __construct(

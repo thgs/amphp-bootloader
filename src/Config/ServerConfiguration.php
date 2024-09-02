@@ -5,6 +5,7 @@ namespace thgs\Bootstrap\Config;
 use Amp\Http\Server\DefaultErrorHandler;
 use Amp\Http\Server\Middleware\AllowedMethodsMiddleware;
 
+/** @api */
 final readonly class ServerConfiguration
 {
     public function __construct(

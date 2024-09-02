@@ -7,6 +7,7 @@ use thgs\Bootstrap\Config\RouterBuilder;
 use Traversable;
 
 /**
+ * @api
  * @psalm-import-type RouteConstructor from RouterBuilder
  * @implements \IteratorAggregate<Route|Group>
  */

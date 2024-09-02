@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\Config;
 
+/** @api */
 class RequestHandlerConfiguration
 {
     public function __construct(

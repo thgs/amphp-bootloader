@@ -12,6 +12,7 @@ use thgs\Bootstrap\Config\Configuration;
 use thgs\Bootstrap\DependencyInjection\Injector;
 use function Amp\trapSignal;
 
+/** @api */
 final class Bootstrap
 {
     /** @var string */

@@ -1,61 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <files psalm-version="5.19.0@06b71be009a6bd6d81b9811855d6629b9fe90e1b">
-  <file src="src/Bootstrap.php">
-    <UnusedClass>
-      <code>Bootstrap</code>
-    </UnusedClass>
-  </file>
-  <file src="src/Config/ConfigLoader.php">
-    <PossiblyUnusedMethod>
-      <code>load</code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Config/Configuration.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedProperty>
-      <code>$custom</code>
-    </PossiblyUnusedProperty>
-  </file>
   <file src="src/Config/Loader/PhpFileLoader.php">
     <UnresolvableInclude>
       <code>include_once $file</code>
     </UnresolvableInclude>
-    <UnusedClass>
-      <code>PhpFileLoader</code>
-    </UnusedClass>
-  </file>
-  <file src="src/Config/LoggingConfiguration.php">
-    <PossiblyUnusedProperty>
-      <code>$logFilePath</code>
-      <code>$loopDetection</code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Config/RequestHandlerConfiguration.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Config/Route/Fallback.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Config/Route/Group.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Config/Route/Path.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-  </file>
-  <file src="src/Config/Route/Websocket.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
   </file>
   <file src="src/Config/RoutesLoader/BlockingArrayLoader.php">
     <MixedArgument>
@@ -65,35 +13,5 @@
     <UnresolvableInclude>
       <code>require $routeFile</code>
     </UnresolvableInclude>
-  </file>
-  <file src="src/Config/RoutesLoader/CombinedLoader.php">
-    <UnusedClass>
-      <code>CombinedLoader</code>
-    </UnusedClass>
-  </file>
-  <file src="src/Config/ServerConfiguration.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedProperty>
-      <code>$documentRoot</code>
-      <code>$errorHandler</code>
-      <code>$staticResources</code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/Config/SessionConfiguration.php">
-    <PossiblyUnusedMethod>
-      <code>__construct</code>
-    </PossiblyUnusedMethod>
-    <PossiblyUnusedProperty>
-      <code>$secureCookie</code>
-      <code>$sessionLifetime</code>
-      <code>$sessionStorage</code>
-    </PossiblyUnusedProperty>
-  </file>
-  <file src="src/DependencyInjection/AurynInjector.php">
-    <UnusedClass>
-      <code>AurynInjector</code>
-    </UnusedClass>
   </file>
 </files>

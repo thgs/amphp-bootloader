@@ -6,6 +6,7 @@ use Amp\File\FilesystemDriver;
 use Amp\Http\Server\Middleware;
 use Amp\Http\Server\RequestHandler;
 
+/** @api */
 final readonly class Fallback
 {
     public function __construct(
