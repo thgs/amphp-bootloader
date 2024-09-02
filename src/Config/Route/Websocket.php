@@ -6,6 +6,7 @@ use Amp\Http\Server\Middleware;
 use Amp\Websocket\Server\WebsocketAcceptor;
 use Amp\Websocket\Server\WebsocketClientHandler;
 
+/** @api */
 readonly class Websocket
 {
     public function __construct(

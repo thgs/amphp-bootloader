@@ -6,6 +6,7 @@ use thgs\Bootstrap\Config\ConfigLoader;
 use thgs\Bootstrap\Config\Configuration;
 use thgs\Bootstrap\Exception\ConfigurationException;
 
+/** @api */
 final readonly class PhpFileLoader implements ConfigLoader
 {
     private Configuration $configuration;

@@ -9,6 +9,7 @@ use thgs\Bootstrap\Config\Route\Route;
 use thgs\Bootstrap\Config\Route\Websocket;
 use thgs\Bootstrap\DependencyInjection\Injector as InjectorInterface;
 
+/** @api */
 class AurynInjector implements InjectorInterface
 {
     public function __construct(private Injector $auryn)

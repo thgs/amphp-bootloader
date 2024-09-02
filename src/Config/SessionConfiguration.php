@@ -4,6 +4,7 @@ namespace thgs\Bootstrap\Config;
 
 use Amp\Http\Server\Session\LocalSessionStorage;
 
+/** @api */
 final readonly class SessionConfiguration
 {
     public const DEFAULT_COOKIE_NAME = 'stc';

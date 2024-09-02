@@ -2,6 +2,7 @@
 
 namespace thgs\Bootstrap\Config;
 
+/** @api */
 interface ConfigLoader
 {
     /**
