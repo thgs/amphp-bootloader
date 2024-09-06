@@ -10,19 +10,25 @@
         "php": ">=8.2",
         "amphp/http-server-session": "^3.0",
         "amphp/websocket-server": "^4.0",
-        "rdlowrey/auryn": "^1.4",
         "ext-pcntl": "^8.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^9",
         "amphp/phpunit-util": "^3.0",
         "psalm/phar": "^5.19",
-        "amphp/php-cs-fixer-config": "^2.0.1"
+        "amphp/php-cs-fixer-config": "^2.0.1",
+        "rdlowrey/auryn": "^1.4",
+        "illuminate/container": "^11.22"
     },
     "license": "MIT",
     "autoload": {
         "psr-4": {
             "thgs\\Bootstrap\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
     },
     "authors": [
