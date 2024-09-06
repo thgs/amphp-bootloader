@@ -8,7 +8,7 @@ use thgs\Bootstrap\DependencyInjection\IlluminateInjector;
 
 class IlluminateContainerTest extends TestCase
 {
-    public function testCanRegister()
+    public function testCanRegister(): void
     {
         $subject = new IlluminateInjector(Container::getInstance());
 

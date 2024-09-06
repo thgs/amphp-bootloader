@@ -15,14 +15,23 @@ class IlluminateInjector implements Injector
     ) {
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     * @todo Cannot really tell why Psalm complains here
+     * @psalm-suppress InvalidReturnType
+     * @psalm-suppress InvalidReturnStatement
+     */
     public function create(string $class, Route|Websocket|Fallback|Path|null $forRoute = null): object
     {
-        return $this->container->make($class);
+        $resolved = $this->container->make($class);
+        if (!\is_object($resolved)) {
+            throw new \Exception('No support to create() parameters yet.');
+        }
+        return $resolved;
     }
 
     /** @inheritDoc */
-    public function register($instance, ?string $definitionIdentifier = null): void
+    public function register(object $instance, ?string $definitionIdentifier = null): void
     {
         $this->container->instance($definitionIdentifier ?? get_class($instance), $instance);
     }
