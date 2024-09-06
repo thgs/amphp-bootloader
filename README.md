@@ -40,3 +40,8 @@ See
 directory for a sample configuration. All configuration objects
 contain the various options you could set up using Amphp directly as
 arguments of the constructor.
+
+Out of the box this package supports the below injectors/containers:
+
+* [Auryn](https://github.com/rdlowrey/Auryn)
+* [Illuminate Container](https://github.com/illuminate/container)
